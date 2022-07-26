@@ -1,4 +1,12 @@
 
+#logging:
+#  level:
+#    ROOT: DEBUG
+#    tech.jhipster: DEBUG
+#    org.hibernate.SQL: DEBUG
+#    bd.gov.banbeis.erp: DEBUG
+#    org.hibernate.cache.spi: TRACE
+
 
 spring:
   application:
@@ -7,6 +15,10 @@ spring:
     url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/banbeiserp
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
   liquibase:
     change-log: classpath:config/liquibase/db.changelog-master.xml
   data:
@@ -19,7 +31,7 @@ spring:
       hibernate.jdbc.time_zone: UTC
       hibernate.id.new_generator_mappings: true
       hibernate.connection.provider_disables_autocommit: true
-      hibernate.cache.use_second_level_cache: true
+      hibernate.cache.use_second_level_cache: false
       hibernate.cache.use_query_cache: false
       hibernate.generate_statistics: false
       # modify batch size as necessary
@@ -28,10 +40,10 @@ spring:
       hibernate.order_updates: true
       hibernate.query.fail_on_pagination_over_collection_fetch: true
       hibernate.query.in_clause_parameter_padding: true
-      hibernate.cache.region.factory_class: com.hazelcast.hibernate.HazelcastCacheRegionFactory
-      hibernate.cache.use_minimal_puts: true
-      hibernate.cache.hazelcast.instance_name: banbeiserp
-      hibernate.cache.hazelcast.use_lite_member: true
+#      hibernate.cache.region.factory_class: com.hazelcast.hibernate.HazelcastCacheRegionFactory
+#      hibernate.cache.use_minimal_puts: true
+#      hibernate.cache.hazelcast.instance_name: banbeiserp
+#      hibernate.cache.hazelcast.use_lite_member: true
     hibernate:
       ddl-auto: none
       naming:
@@ -43,3 +55,8 @@ server:
     session:
       cookie:
         http-only: true
+
+#banbeis:
+#  cache:
+#    hazelcast:
+#      time-to-live-seconds: 3600
