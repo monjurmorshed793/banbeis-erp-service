@@ -1,4 +1,3 @@
-/*
 package bd.gov.banbeis.erp.configurations;
 
 import com.hazelcast.config.*;
@@ -7,8 +6,10 @@ import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.spring.cache.HazelcastCacheManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernatePropertiesCustomizer;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.jcache.JCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -18,11 +19,10 @@ import javax.annotation.PreDestroy;
 import java.util.Arrays;
 
 @Configuration
-//@EnableCaching
+@EnableCaching
 @Slf4j
 @RequiredArgsConstructor
 public class CacheConfiguration {
-
     private final Environment environment;
 
     @PreDestroy
@@ -30,6 +30,7 @@ public class CacheConfiguration {
         log.info("Closing cache manager");
         Hazelcast.shutdownAll();
     }
+
 
     @Bean
     public CacheManager cacheManager(HazelcastInstance hazelcastInstance){
@@ -72,24 +73,20 @@ public class CacheConfiguration {
         MapConfig mapConfig = new MapConfig("default");
         mapConfig.setBackupCount(2);
 
-        */
-/*
-        Valid values are:
-        NONE (no eviction),
-        LRU (Least Recently Used),
-        LFU (Least Frequently Used).
-        NONE is the default.
-        *//*
+
+//        Valid values are:
+//        NONE (no eviction),
+//        LRU (Least Recently Used),
+//        LFU (Least Frequently Used).
+//        NONE is the default.
 
         mapConfig.getEvictionConfig().setEvictionPolicy(EvictionPolicy.LRU);
 
-                */
-/*
-        Maximum size of the map. When max size is reached,
-        map is evicted based on the policy defined.
-        Any integer between 0 and Integer.MAX_VALUE. 0 means
-        Integer.MAX_VALUE. Default is 0.
-        *//*
+
+//        Maximum size of the map. When max size is reached,
+//        map is evicted based on the policy defined.
+//        Any integer between 0 and Integer.MAX_VALUE. 0 means
+//        Integer.MAX_VALUE. Default is 0.
 
         mapConfig.getEvictionConfig().setMaxSizePolicy(MaxSizePolicy.USED_HEAP_SIZE);
         return mapConfig;
@@ -103,4 +100,3 @@ public class CacheConfiguration {
         return mapConfig;
     }
 }
-*/
