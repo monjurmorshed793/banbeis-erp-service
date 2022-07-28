@@ -11,7 +11,7 @@ spring:
   application:
     name: banbeis-blog
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/banbeiserp
+    url: jdbc:mysql://banbeis-mysql:3306/banbeiserp
     username: root
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
